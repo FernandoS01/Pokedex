@@ -5,7 +5,7 @@
   border: 0;
   font-family: Andika;
 }
-body {
+body,html {
   background-color:  #2a75bb;
 }
 input:focus {
