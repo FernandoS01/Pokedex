@@ -2,14 +2,11 @@ import { useState } from 'react'
 import { MagnifyingGlass } from "phosphor-react";
 
 export function Navbar(props) {
-  const [selectValue, setSelectValue] = useState(1);  
-  const select = [
-    {id:1,name:'name'},
-    {id:2,name:'id'},
-  ]
-  const [alterSearch,setAlterSearch] = useState('name')
-  const filter = (e) => {
-   console.log(alterSearch)
+  const filterPokemons = (e) => {
+   const filtered = props.list.filter((pokemon)=>{
+    return pokemon.data.name.includes(e.target.value.toLowerCase())
+   })
+   props.filter(filtered)
   };
 
   return (
@@ -17,18 +14,15 @@ export function Navbar(props) {
      <div className='w-4/5 sm:w-2/4 px-2 flex x items-center relative'>
       <input
         placeholder="Busque um  Pokemon!"
-        onChange={(e)=>{filter(e)}}
+        onChange={(e)=>{filterPokemons(e)}}
         type="text"
         className="w-full rounded py-2 px-4"
       />
       <MagnifyingGlass size={28} className="text-red-500 absolute right-3"  />
     </div>
-      <select className='w-2/4 sm:w-1/6 mx-auto text-center border-none rounded' value={selectValue} onChange={(e)=>setAlterSearch(e.target.value)}>
-        {
-          select.map((option)=>{
-            return <option value={option.id}>{option.name}</option>
-          })
-          }
+      <select className='w-2/4 sm:w-1/6 mx-auto text-center border-none rounded'>
+       <option>Name</option>
+       <option>Type</option>
       </select>
       
     </div>
