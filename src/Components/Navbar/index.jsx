@@ -1,11 +1,22 @@
+import { useRef } from 'react'
 import { MagnifyingGlass } from "phosphor-react";
 
 export function Navbar(props) {
+  const selectRef = useRef()
+
   const filterPokemons = (e) => {
+  if(selectRef.current.value == 'Name'){  
    const filtered = props.list.filter((pokemon)=>{
     return pokemon.data.name.includes(e.target.value.toLowerCase())
    })
    props.filter(filtered)
+  }
+  if(selectRef.current.value == 'Type'){
+    const filtered = props.list.filter((pokemon)=>{
+      return pokemon.data.types[0].type.name.includes(e.target.value.toLowerCase())
+     })
+     props.filter(filtered)
+  }
   };
 
   return (
@@ -19,7 +30,7 @@ export function Navbar(props) {
       />
       <MagnifyingGlass size={28} className="text-red-500 absolute right-3"  />
     </div>
-      <select className='w-2/4 sm:w-1/6 mx-auto text-center border-none rounded'>
+      <select ref={selectRef} className='w-2/4 sm:w-1/6 mx-auto text-center border-none rounded'>
        <option>Name</option>
        <option>Type</option>
       </select>
