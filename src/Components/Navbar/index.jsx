@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { MagnifyingGlass } from "phosphor-react";
 
 export function Navbar(props) {
