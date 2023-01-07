@@ -7,13 +7,13 @@ export function Navbar(props) {
   const filterPokemons = (e) => {
   if(selectRef.current.value == 'Name'){  
    const filtered = props.list.filter((pokemon)=>{
-    return pokemon.data.name.includes(e.target.value.toLowerCase())
+    return pokemon.name.includes(e.target.value.toLowerCase())
    })
    props.filter(filtered)
   }
   if(selectRef.current.value == 'Type'){
     const filtered = props.list.filter((pokemon)=>{
-      return pokemon.data.types[0].type.name.includes(e.target.value.toLowerCase())
+      return pokemon.types[0].type.name.includes(e.target.value.toLowerCase())
      })
      props.filter(filtered)
   }

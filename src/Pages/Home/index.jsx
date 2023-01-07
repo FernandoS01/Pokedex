@@ -6,31 +6,23 @@ import { Navbar } from "./../../Components/Navbar";
 
 export function Home() {
   const [pokemons, setPokemons] = useState([]);
+
   const [filtered, setFiltered] = useState([]);
   const getPokemons = () => {
-    const endpoints = [];
-    for (let i = 1; i <= 30; i++) {
-      endpoints.push(`https://pokeapi.co/api/v2/pokemon/${i}/`);
-    }
-     const response = axios.all(
-      endpoints.forEach((endpoint) => {
-        axios
-          .get(endpoint)
-          .then((res) => setPokemons((prev) => [...prev, res]))
-          .catch((e)=>console.log(e)); 
-      })
-    );
-    
+  
+    axios.get('https://pokeapi.co/api/v2/pokemon?limit=10&offset=0')
+    .then((res)=> res.data.results.forEach((poke)=>{
+      axios.get(poke.url).then((res)=>setPokemons((prev)=>[...prev,res.data]))
+    }))
   };
   useEffect(() => {
     getPokemons();
-    console.log(filtered);
   }, []);
   useEffect(()=>{
     setFiltered(pokemons)
   },[pokemons])
 
-  return (
+return (
     <>
       <Navbar filter={setFiltered} list={pokemons} />
       <div className=" w-full py-10 container flex justify-center flex-wrap gap-4 mx-auto">
@@ -40,14 +32,14 @@ export function Home() {
           filtered.map((pokemon) => {
             return (
               <Cards
-                key={pokemon.data.id}
-                picture={pokemon.data.sprites.front_default}
-                id={pokemon.data.id}
-                name={pokemon.data.name}
-                type={pokemon.data.types[0].type.name}
-                typeSecondary={pokemon?.data?.types[1]?.type.name}
+                key={pokemon.id}
+                picture={pokemon.sprites.front_default}
+                id={pokemon.id}
+                name={pokemon.name}
+                type={pokemon.types[0].type.name}
+                typeSecondary={pokemon?.types[1]?.type.name}
               />
-            );
+            )
           })
         )}
       </div>
