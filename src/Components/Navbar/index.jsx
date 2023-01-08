@@ -1,16 +1,23 @@
 import { useRef } from 'react'
-import { MagnifyingGlass } from "phosphor-react";
+import axios from 'axios'
+
+import { MagnifyingGlass, RedditLogo } from "phosphor-react";
 
 export function Navbar(props) {
   const selectRef = useRef()
 
   const filterPokemons = (e) => {
   if(selectRef.current.value == 'Name'){  
+  //   const filtered = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=100&offset=0')
+  //   .then((res)=>{
+  //     return res.data
+  //   })
+  //  console.log(filtered)  
    const filtered = props.list.filter((pokemon)=>{
     return pokemon.name.includes(e.target.value.toLowerCase())
-   })
-   props.filter(filtered)
-  }
+  })
+  props.filter(filtered)
+}
   if(selectRef.current.value == 'Type'){
     const filtered = props.list.filter((pokemon)=>{
       return pokemon.types[0].type.name.includes(e.target.value.toLowerCase())
