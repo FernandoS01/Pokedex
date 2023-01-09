@@ -55,7 +55,7 @@ export function Home() {
 return (
     <>
       <Navbar filter={setFiltered} list={pokemons} />
-      <div className="flex justify-center w-full gap-10">
+      <div className="flex mx-auto my-4 justify-center w-5/6 gap-2 md:gap-10">
       {
         pages.map((page)=>{
           return <button onClick={(e)=>setPagination(e.target.value)} key={page.id} className='bg-white px-4 py-2 rounded-md my-2' value={page.value}>{page.page}</button>
