@@ -5,6 +5,9 @@ import "./../../global.css";
 import { Navbar } from "./../../Components/Navbar";
 import { pages } from "./Pagination";
 
+import Pokeball from './../../Assets/Pokeball.png'
+import Wobbufet from './../../Assets/Wobbufet.png'
+
 export function Home() {
   const [pokemons, setPokemons] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -43,10 +46,16 @@ return (
       <div className=" w-full py-10 container flex justify-center flex-wrap gap-6 mx-auto">
         {
         isLoading ? 
-          <h1>Carregando...</h1>
-        :
+        <div className="flex flex-col justify-center items-center">
+          <img id='pokeball' src={Pokeball} className='w-1/4' alt='pokeball' />
+          <h1 className="text-2xl">Carregando...</h1>
+        </div>
+          :
         filtered.length == 0 ? (
-          <h1 className="text-white text-lg">Sem resultados...</h1>
+          <div className="flex flex-col justify-center items-center">
+          <img className="w-1/2" src={Wobbufet} alt='wobbufet' />
+          <h1 className="text-white text-2xl">Sem resultados...</h1>
+          </div>
         ) : (
           filtered.map((pokemon) => {
             return (
