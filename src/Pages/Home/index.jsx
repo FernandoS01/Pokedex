@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import ReactDOM  from "react-dom";
+
 import axios from "axios";
 import { Cards } from "./../../Components/Cards";
 import "./../../global.css";
@@ -7,12 +9,15 @@ import { pages } from "./Pagination";
 
 import Pokeball from './../../Assets/Pokeball.png'
 import Wobbufet from './../../Assets/Wobbufet.png'
+import { Modal } from "../../Components/Modal";
 
 export function Home() {
   const [pokemons, setPokemons] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [pagination,setPagination] = useState(0)
   const [isLoading,setIsLoading] = useState(true)
+  const [modalIsOpen,setModalIsOpen] = useState(false)
+  const [modalData,setModalData] = useState(0)
 
   const getPokemons = () => {
     setPokemons([])
@@ -29,6 +34,14 @@ export function Home() {
   setPagination(e.target.value)  
 }
 
+  const addModal = (e) => {
+    const modal = filtered.filter((pokemon)=>{
+      return pokemon.id == e.target.id
+    })
+    setModalData(modal)
+    
+    setModalIsOpen(true)
+  }
 
   useEffect(() => {
     getPokemons();
@@ -42,6 +55,12 @@ export function Home() {
 return (
     <>
       <Navbar filter={setFiltered} list={pokemons} />
+     <div>
+     {
+      modalIsOpen ?
+        ReactDOM.createPortal(<Modal modalData={modalData} setModalIsOpen={setModalIsOpen}/>,document.getElementById('modal'))
+      :
+    <>
      
       <div className=" w-full py-10 container flex justify-center flex-wrap gap-6 mx-auto">
         {
@@ -60,7 +79,10 @@ return (
           filtered.map((pokemon) => {
             return (
               <Cards
+                event={addModal}
+                onClick={(e)=>console.log(e.target)}
                 key={pokemon.id}
+                id={pokemon.id}
                 picture={pokemon.sprites.front_default}
                 name={pokemon.name}
                 type={pokemon.types[0].type.name}
@@ -81,6 +103,9 @@ return (
         })
       }
       </div>
+      </>
+      }
+    </div>
     </>
   );
 }

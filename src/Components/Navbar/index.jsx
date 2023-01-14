@@ -30,7 +30,7 @@ export function Navbar(props) {
     
   },[])
   return (
-    <div className="w-full py-4 bg-[#F71E1E] flex justify-center items-center gap-4 flex-col">
+    <div className="w-full py-4 bg-[#F71E1E] flex justify-center items-center border-b-8 border-solid border-black gap-4 flex-col">
       <div>
         <img src={Logo} alt='Logo pokemon' />
       </div>

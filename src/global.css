@@ -10,7 +10,6 @@
   box-sizing: border-box;
   margin: 0;
   border: 0;
-  font-family: Sugar,'Sugar Snow',Andika;
 }
 body,html {
   background-color: #5B5F97;
@@ -21,6 +20,12 @@ input:focus {
 #pokeball {
   animation: animation 2s linear infinite;
   transition: 1s;
+}
+h1 {
+  font-family: Sugar,'Suger Snow',Andika;
+}
+h2,h3 {
+  font-family: Andika;
 }
 
 @keyframes animation {
